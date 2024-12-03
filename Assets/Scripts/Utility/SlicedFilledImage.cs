@@ -7,7 +7,7 @@ using UnityEngine.U2D;
 #endif
 using Sprites = UnityEngine.Sprites;
 
-namespace UI
+namespace Utility
 {
 // Credit: https://bitbucket.org/Unity-Technologies/ui/src/2018.4/UnityEngine.UI/UI/Core/Image.cs
     [RequireComponent (typeof(CanvasRenderer))]

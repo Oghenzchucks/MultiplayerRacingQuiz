@@ -1,34 +1,38 @@
+using MenuNavigation;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class DoubleTapUtility : MonoBehaviour
+namespace Utility
 {
-    private Button _button;
-
-    private void Awake()
+    [RequireComponent(typeof(Button))]
+    public class DoubleTapUtility : MonoBehaviour
     {
-        _button = GetComponent<Button>();
-    }
+        private Button _button;
 
-    private void OnEnable()
-    {
-        ActivateButton();
-        MenuManager.OnMenuUpdated += MenuUpdated;
-    }
+        private void Awake()
+        {
+            _button = GetComponent<Button>();
+        }
 
-    private void OnDisable()
-    {
-        MenuManager.OnMenuUpdated -= MenuUpdated;
-    }
+        private void OnEnable()
+        {
+            ActivateButton();
+            MenuManager.OnMenuUpdated += MenuUpdated;
+        }
 
-    private void MenuUpdated()
-    {
-        ActivateButton();
-    }
+        private void OnDisable()
+        {
+            MenuManager.OnMenuUpdated -= MenuUpdated;
+        }
 
-    private void ActivateButton()
-    {
-        _button.interactable = true;
+        private void MenuUpdated()
+        {
+            ActivateButton();
+        }
+
+        private void ActivateButton()
+        {
+            _button.interactable = true;
+        }
     }
 }

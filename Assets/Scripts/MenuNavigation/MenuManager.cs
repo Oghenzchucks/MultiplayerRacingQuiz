@@ -2,19 +2,33 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuManager : MonoBehaviour
+namespace MenuNavigation
 {
-    [SerializeField] private List<Menu> menus;
-
-    public static Action OnMenuUpdated;
-
-    public void SetMenu(MenuEnums menuTag, bool isActive)
+    public class MenuManager : MonoBehaviour
     {
-        foreach(var menu in menus)
+        [SerializeField] private List<Menu> menus;
+
+        public static Action OnMenuUpdated;
+        public static Action<MenuEnums, bool> OnLoadMenu;
+
+        private void Awake()
         {
-            menu.ShowMenu(menuTag, isActive);
+            OnLoadMenu += SetMenu;
         }
 
-        OnMenuUpdated?.Invoke();
+        private void OnDestroy()
+        {
+            OnLoadMenu -= SetMenu;
+        }
+
+        public void SetMenu(MenuEnums menuTag, bool isActive)
+        {
+            foreach (var menu in menus)
+            {
+                menu.ShowMenu(menuTag, isActive);
+            }
+
+            OnMenuUpdated?.Invoke();
+        }
     }
 }
