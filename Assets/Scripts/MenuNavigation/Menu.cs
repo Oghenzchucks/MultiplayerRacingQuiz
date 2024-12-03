@@ -8,28 +8,50 @@ public class Menu : MonoBehaviour
 
     public MenuEnums GetTagID => tagID;
 
-    private void Start()
+    public void ShowMenu(MenuEnums menuTagID, bool isActive)
     {
-        if (subMenus.Count > 0)
+        if (menuTagID == GetTagID)
         {
-            SwitchSubMenu(subMenus[0].GetTagID);
+            SetMenu(isActive);
+        }
+        else if (IsPresentInSubMenu(menuTagID))
+        {
+            SetSubMenu(menuTagID, isActive);
+        }
+        else
+        {
+            SetMenu(false);
         }
     }
 
-    public void ShowMenu(bool isActive)
+    public void SetMenu(bool isActive)
     {
-        if (isActive && subMenus.Count > 0)
+        if (subMenus.Count > 0 && isActive)
         {
-            SwitchSubMenu(subMenus[0].GetTagID);
+            SetSubMenu(subMenus[0].GetTagID, true);
         }
         gameObject.SetActive(isActive);
     }
 
-    private void SwitchSubMenu(MenuEnums tagID)
+    private bool IsPresentInSubMenu(MenuEnums menuTagID)
+    {
+        return subMenus.Find(x => x.GetTagID == menuTagID) != null;
+    }
+
+    private void SetSubMenu(MenuEnums menuTagID, bool isActive)
     {
         foreach (var menu in subMenus)
         {
-            menu.ShowMenu(menu.GetTagID == tagID);
+            if (isActive && menu.GetTagID != menuTagID)
+            {
+                menu.SetMenu(false);
+            }
+            else if (menu.GetTagID == menuTagID)
+            {
+                menu.SetMenu(isActive);
+            }
         }
+
+        gameObject.SetActive(true);
     }
 }
