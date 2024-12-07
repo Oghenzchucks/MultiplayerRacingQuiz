@@ -2991,8 +2991,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 607444267}
-        m_TargetAssemblyTypeName: Multiplayer.MultiplayerManager, Assembly-CSharp
+      - m_Target: {fileID: 607444265}
+        m_TargetAssemblyTypeName: GameSystem.GameLauncher, Assembly-CSharp
         m_MethodName: LeaveGame
         m_Mode: 1
         m_Arguments:
@@ -3064,7 +3064,6 @@ GameObject:
   - component: {fileID: 607444263}
   - component: {fileID: 607444265}
   - component: {fileID: 607444266}
-  - component: {fileID: 607444267}
   - component: {fileID: 607444268}
   - component: {fileID: 607444269}
   m_Layer: 0
@@ -3101,12 +3100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ed91c93d5f043a5ab37717ba62d1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplayerManager: {fileID: 607444267}
+  multiplayerManagerPrefab: {fileID: 1466285149035974043, guid: 03ac179dd381e4c98856f85455083d9b, type: 3}
   cameraController: {fileID: 963194230}
   speedCalculator: {fileID: 607444268}
   timeTicker: {fileID: 607444269}
   positionSystem: {fileID: 1812737017}
   resultView: {fileID: 1146573730}
+  spawnPoint: {fileID: 1846938646}
+  inputController: {fileID: 363305466}
 --- !u!114 &607444266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3122,24 +3123,6 @@ MonoBehaviour:
   menus:
   - {fileID: 1991789980}
   - {fileID: 473803450}
---- !u!114 &607444267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 607444261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2269cb6d4c1864c9492edb240d27764e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefabs:
-  - RawGuidValue: 7fd408df2dc364f808c871ec8f173a22
-  - RawGuidValue: 96e5343782a1b4a59bccce413c16862a
-  - RawGuidValue: 8eeb70b7e18704de9b759bfc02e3af89
-  spawnPoint: {fileID: 1846938646}
-  inputController: {fileID: 363305466}
 --- !u!114 &607444268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4156,8 +4139,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 607444267}
-        m_TargetAssemblyTypeName: Multiplayer.MultiplayerManager, Assembly-CSharp
+      - m_Target: {fileID: 607444265}
+        m_TargetAssemblyTypeName: GameSystem.GameLauncher, Assembly-CSharp
         m_MethodName: LeaveGame
         m_Mode: 1
         m_Arguments:
@@ -6757,7 +6740,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1704667702}
   - component: {fileID: 1704667701}
-  - component: {fileID: 1704667703}
   m_Layer: 0
   m_Name: finish_line_trigger
   m_TagString: Untagged
@@ -6801,18 +6783,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1704667703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704667700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ddaea69774048e3b1a3cf62e347296, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1704836484
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,16 +9,19 @@ namespace GameSystem
 {
     public class GameLauncher : MonoBehaviour
     {
-        [SerializeField] private MultiplayerManager multiplayerManager;
+        [SerializeField] private MultiplayerManager multiplayerManagerPrefab;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private SpeedCalculator speedCalculator;
         [SerializeField] private TimeTicker timeTicker;
         [SerializeField] private PositionSystem positionSystem;
         [SerializeField] private ResultView resultView;
+        [SerializeField] private Transform spawnPoint;
+        [SerializeField] private InputController inputController;
 
         public static Action<Transform> OnPlayerSpawned;
 
         private PlayerController _playerController;
+        private MultiplayerManager _multiplayerManager;
 
         private void Awake()
         {
@@ -38,7 +41,12 @@ namespace GameSystem
         public void LaunchGame(bool isHosting)
         {
             ShowMenu(MenuEnums.LOADING_VIEW, true);
-            multiplayerManager.StartGame(isHosting ? Fusion.GameMode.Host : Fusion.GameMode.Client);
+            if (_multiplayerManager == null)
+            {
+                _multiplayerManager = Instantiate(multiplayerManagerPrefab);
+                _multiplayerManager.Initialize(inputController, spawnPoint);
+            }
+            _multiplayerManager.StartGame(Fusion.GameMode.AutoHostOrClient);
         }
 
         public void PlayerSpawned(Transform carTransform)
@@ -73,10 +81,18 @@ namespace GameSystem
 
         public void ShowResultView()
         {
+            inputController.SetInputLock(true);
             positionSystem.SetPositionTrackingState(false);
             resultView.SetResult(positionSystem.ToString(), TimeTicker.FormatLongTimeLeft(timeTicker.TickTimer));
             ShowMenu(MenuEnums.RESULT_VIEW, true);
             _playerController.OnRaceFinished -= ShowResultView;
+        }
+
+        public void LeaveGame()
+        {
+            _multiplayerManager.LeaveGame();
+            ShowMenu(MenuEnums.HOME, true);
+            _multiplayerManager = null;
         }
     }
 }

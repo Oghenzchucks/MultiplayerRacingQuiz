@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Fusion;
 using Fusion.Sockets;
-using GameSystem;
 using MenuNavigation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,18 +11,23 @@ namespace Multiplayer
     public class MultiplayerManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         [SerializeField] private NetworkPrefabRef[] playerPrefabs;
-        [SerializeField] private Transform spawnPoint;
-        [SerializeField] private InputController inputController;
+
+        private InputController _inputController;
+        private Transform _spawnPoint;
 
         private NetworkRunner _runner;
         public NetworkRunner GetRunner => _runner;
-
-        private PlayerRef _playerRef;
 
         private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
         public Dictionary<PlayerRef, NetworkObject> GetSpawnedCharacters => _spawnedCharacters;
 
         public bool ArePlayersComplete => _runner.SessionInfo.PlayerCount == _runner.SessionInfo.MaxPlayers;
+
+        public void Initialize(InputController inputController, Transform spawnPoint) 
+        {
+            _inputController = inputController;
+            _spawnPoint = spawnPoint;
+        }
 
         public async void StartGame(GameMode mode)
         {
@@ -55,11 +58,6 @@ namespace Multiplayer
 
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
-            if (player == _runner.LocalPlayer)
-            {
-                _playerRef = player;
-            }
-
             if (!runner.IsServer)
             {
                 return;
@@ -69,13 +67,13 @@ namespace Multiplayer
 
             // SPAWN PLAYERS
             var playerCount = runner.SessionInfo.PlayerCount;
-            NetworkObject networkPlayerObject = runner.Spawn(playerPrefabs[playerCount - 1], spawnPoint.position + new Vector3((spawnPoint.position.x + 10) * (1 - playerCount), 0, 0), Quaternion.identity, player);
+            NetworkObject networkPlayerObject = runner.Spawn(playerPrefabs[playerCount - 1], _spawnPoint.position + new Vector3((_spawnPoint.position.x + 10) * (1 - playerCount), 0, 0), Quaternion.identity, player);
             _spawnedCharacters.Add(player, networkPlayerObject);
 
             if (_spawnedCharacters.Count == _runner.SessionInfo.MaxPlayers)
             {
                 //START THE GAME ON SERVER
-                inputController.SetInputLock(false);
+                _inputController.SetInputLock(false);
             }
         }
 
@@ -102,9 +100,9 @@ namespace Multiplayer
         {
             var data = new NetworkInputData();
 
-            if (inputController.IsSendingInput)
+            if (_inputController.IsSendingInput)
             {
-                data.direction = inputController.GetDriveDirection();
+                data.direction = _inputController.GetDriveDirection();
             }
 
             if (Input.GetKey(KeyCode.W))
@@ -124,8 +122,7 @@ namespace Multiplayer
 
         public void LeaveGame()
         {
-            MenuManager.OnLoadMenu?.Invoke(MenuEnums.LOADING_VIEW, true);
-            _runner.Disconnect(_playerRef);
+            _runner.Shutdown();
         }
 
         public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
@@ -152,10 +149,5 @@ namespace Multiplayer
         public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
         public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data) { }
         public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress) { }
-    }
-
-    public class CarPositionData
-    {
-        public int position;
     }
 }
