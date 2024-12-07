@@ -18,7 +18,7 @@ namespace CameraSystem
             Vector3 desiredPosition = target.position + offset;
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
             transform.position = smoothedPosition;
-            transform.LookAt(target);
+            transform.LookAt(target.position + new Vector3(0, 2, 0));
         }
 
         public void SetTarget(Transform followTarget)

@@ -46,7 +46,7 @@ namespace GameSystem
                 _multiplayerManager = Instantiate(multiplayerManagerPrefab);
                 _multiplayerManager.Initialize(inputController, spawnPoint);
             }
-            _multiplayerManager.StartGame(isHosting ? Fusion.GameMode.AutoHostOrClient : Fusion.GameMode.Client);
+            _multiplayerManager.StartGame(isHosting ? Fusion.GameMode.Host : Fusion.GameMode.Shared);
         }
 
         public void PlayerSpawned(Transform carTransform)

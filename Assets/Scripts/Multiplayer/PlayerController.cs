@@ -38,6 +38,7 @@ namespace Multiplayer
         {
             if (Runner.IsServer)
             {
+                _carController.StopCar();
                 HasFinishedRace = true;
             }
 
@@ -49,7 +50,11 @@ namespace Multiplayer
 
         private void FinishedRace()
         {
-            _carController.StopCar();
+            if (!HasInputAuthority)
+            {
+                return;
+            }
+
             OnRaceFinished?.Invoke();
         }
     }

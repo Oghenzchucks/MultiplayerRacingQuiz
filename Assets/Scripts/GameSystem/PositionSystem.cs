@@ -18,6 +18,7 @@ namespace GameSystem
 
         private Transform target;
         private bool _isActive;
+        private int _lastPosition;
 
         private void Awake()
         {
@@ -72,7 +73,13 @@ namespace GameSystem
 
         private float GetDistanceBtwTwoPoints(Transform start, Transform end)
         {
-            return Vector3.Distance(FormatVector3Position(start.position), FormatVector3Position(end.position));
+            var startPos = FormatVector3Position(start.position);
+            var endPos = FormatVector3Position(end.position);
+            if (startPos.z > endPos.z)
+            {
+                return 0;
+            }
+            return Vector3.Distance(startPos, endPos);
         }
 
         private Vector3 FormatVector3Position(Vector3 position)
@@ -92,6 +99,7 @@ namespace GameSystem
                 return;
             }
 
+            _lastPosition = CarPosition;
             CarPosition = GetPosition(target, _spawnedCars);
             TotalCars = _spawnedCars.Count;
         }
@@ -126,7 +134,7 @@ namespace GameSystem
 
         public override string ToString()
         {
-            return CarPosition + " / " + TotalCars;
+            return _lastPosition + " / " + TotalCars;
         }
     }
 }
