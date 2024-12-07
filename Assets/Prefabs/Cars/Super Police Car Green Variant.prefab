@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6286721314887980301, guid: 7fd408df2dc364f808c871ec8f173a22, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6286721314887980301, guid: 7fd408df2dc364f808c871ec8f173a22, type: 3}
       propertyPath: NetworkedBehaviours.Array.data[0]
@@ -35,17 +35,21 @@ PrefabInstance:
     - target: {fileID: 6286721314887980301, guid: 7fd408df2dc364f808c871ec8f173a22, type: 3}
       propertyPath: NetworkedBehaviours.Array.data[2]
       value: 
-      objectReference: {fileID: 5695998708321288277}
+      objectReference: {fileID: 594384842260944424}
     - target: {fileID: 6286721314887980301, guid: 7fd408df2dc364f808c871ec8f173a22, type: 3}
       propertyPath: NetworkedBehaviours.Array.data[3]
       value: 
-      objectReference: {fileID: 374121815521666758}
+      objectReference: {fileID: 5695998708321288277}
     - target: {fileID: 6286721314887980301, guid: 7fd408df2dc364f808c871ec8f173a22, type: 3}
       propertyPath: NetworkedBehaviours.Array.data[4]
       value: 
-      objectReference: {fileID: 7611946210272087565}
+      objectReference: {fileID: 374121815521666758}
     - target: {fileID: 6286721314887980301, guid: 7fd408df2dc364f808c871ec8f173a22, type: 3}
       propertyPath: NetworkedBehaviours.Array.data[5]
+      value: 
+      objectReference: {fileID: 7611946210272087565}
+    - target: {fileID: 6286721314887980301, guid: 7fd408df2dc364f808c871ec8f173a22, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[6]
       value: 
       objectReference: {fileID: 5536766324609645586}
     - target: {fileID: 8491136103968142927, guid: 7fd408df2dc364f808c871ec8f173a22, type: 3}
@@ -102,6 +106,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &594384842260944424 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3554620909926826224, guid: 7fd408df2dc364f808c871ec8f173a22, type: 3}
+  m_PrefabInstance: {fileID: 5085934799692343608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d092cd3f9d66b4123a763fd3d1b24827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2066103704596252797 stripped

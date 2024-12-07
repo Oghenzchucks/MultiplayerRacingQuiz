@@ -2,6 +2,7 @@ using System;
 using CameraSystem;
 using MenuNavigation;
 using Multiplayer;
+using UI;
 using UnityEngine;
 
 namespace GameSystem
@@ -12,8 +13,12 @@ namespace GameSystem
         [SerializeField] private CameraController cameraController;
         [SerializeField] private SpeedCalculator speedCalculator;
         [SerializeField] private TimeTicker timeTicker;
+        [SerializeField] private PositionSystem positionSystem;
+        [SerializeField] private ResultView resultView;
 
         public static Action<Transform> OnPlayerSpawned;
+
+        private PlayerController _playerController;
 
         private void Awake()
         {
@@ -36,12 +41,19 @@ namespace GameSystem
             multiplayerManager.StartGame(isHosting ? Fusion.GameMode.Host : Fusion.GameMode.Client);
         }
 
-        public void PlayerSpawned(Transform transform)
+        public void PlayerSpawned(Transform carTransform)
         {
-            ShowMenu(MenuEnums.HUD_VIEW, true);
-            cameraController.SetTarget(transform);
-            speedCalculator.SetTarget(transform);
+            cameraController.SetTarget(carTransform);
+            speedCalculator.SetTarget(carTransform);
+            positionSystem.SetTarget(carTransform);
+
+            _playerController = carTransform.GetComponent<PlayerController>();
+            _playerController.OnRaceFinished += ShowResultView;
+
+            positionSystem.SetPositionTrackingState(true);
             timeTicker.SetTimersState(true);
+
+            ShowMenu(MenuEnums.HUD_VIEW, true);
         }
 
         public void SetExitWarningScreen(bool isActive)
@@ -57,6 +69,14 @@ namespace GameSystem
         private void ShowMenu(MenuEnums menuTagID, bool isActive)
         {
             MenuManager.OnLoadMenu?.Invoke(menuTagID, isActive);
+        }
+
+        public void ShowResultView()
+        {
+            positionSystem.SetPositionTrackingState(false);
+            resultView.SetResult(positionSystem.ToString(), TimeTicker.FormatLongTimeLeft(timeTicker.TickTimer));
+            ShowMenu(MenuEnums.RESULT_VIEW, true);
+            _playerController.OnRaceFinished -= ShowResultView;
         }
     }
 }

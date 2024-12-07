@@ -3029,6 +3029,7 @@ GameObject:
   - component: {fileID: -1857917473436471125}
   - component: {fileID: 4672619729516552195}
   - component: {fileID: 2816997926114858800}
+  - component: {fileID: 2088245426568782025}
   m_Layer: 0
   m_Name: Police Monster Truck
   m_TagString: Untagged
@@ -3087,6 +3088,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: -1857917473436471125}
   - {fileID: 2816997926114858800}
+  - {fileID: 2088245426568782025}
 --- !u!114 &2816997926114858800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3099,6 +3101,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d092cd3f9d66b4123a763fd3d1b24827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _HasFinishedRace: 0
+--- !u!114 &2088245426568782025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476045926879379039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78939f6e9f0aa4df48aa87bffc609ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motorForce: 0
+  breakForce: 0
+  maxSteerAngle: 0
+  frontLeftWheelCollider: {fileID: 0}
+  frontRightWheelCollider: {fileID: 0}
+  rearLeftWheelCollider: {fileID: 0}
+  rearRightWheelCollider: {fileID: 0}
+  frontLeftWheelTransform: {fileID: 0}
+  frontRightWheelTransform: {fileID: 0}
+  rearLeftWheelTransform: {fileID: 0}
+  rearRightWheelTransform: {fileID: 0}
+  isTesting: 0
 --- !u!1 &6759634339975456614
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,11 @@
+using System.Collections;
 using Fusion;
 using GameSystem;
 using UnityEngine;
 
 namespace Car
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class CarController : NetworkBehaviour
     {
         private float horizontalInput, verticalInput;
@@ -21,7 +23,14 @@ namespace Car
         [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
         [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
 
-        [SerializeField] private bool isTesting;
+        [SerializeField] private bool isSinglePlayer;
+
+        private Rigidbody _carRigidbody;
+
+        private void Start()
+        {
+            _carRigidbody = GetComponent<Rigidbody>();
+        }
 
         public override void Spawned()
         {
@@ -29,11 +38,17 @@ namespace Car
             {
                 GameLauncher.OnPlayerSpawned?.Invoke(transform);
             }
+            PositionSystem.OnSpawn?.Invoke(transform, true);
+        }
+
+        private void OnDestroy()
+        {
+            PositionSystem.OnSpawn?.Invoke(transform, false);
         }
 
         private void FixedUpdate()
         {
-            if (isTesting)
+            if (isSinglePlayer)
             {
                 var direction = Vector3.zero;
 
@@ -48,6 +63,11 @@ namespace Car
 
                 if (Input.GetKey(KeyCode.D))
                     direction += Vector3.right;
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    StopCar();
+                }
 
                 GetInput(direction);
                 HandleMotor();
@@ -117,6 +137,19 @@ namespace Car
             wheelCollider.GetWorldPose(out pos, out rot);
             wheelTransform.rotation = rot;
             wheelTransform.position = pos;
+        }
+
+        public void StopCar()
+        {
+            StartCoroutine(ApplyForceStop());
+        }
+
+        private IEnumerator ApplyForceStop()
+        {
+            isBreaking = true;
+            ApplyBreaking();
+            yield return new WaitUntil(() => _carRigidbody.velocity == Vector3.zero);
+            isBreaking = false;
         }
     }
 }

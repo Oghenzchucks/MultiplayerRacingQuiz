@@ -1280,6 +1280,7 @@ GameObject:
   - component: {fileID: 8922413931760030391}
   - component: {fileID: 6286721314887980301}
   - component: {fileID: 6501113873391788357}
+  - component: {fileID: -3554620909926826224}
   m_Layer: 0
   m_Name: Super Police Car
   m_TagString: Untagged
@@ -1364,7 +1365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   motorForce: 1000
-  breakForce: 3000
+  breakForce: 3000000
   maxSteerAngle: 30
   frontLeftWheelCollider: {fileID: 4646163866278246542}
   frontRightWheelCollider: {fileID: 5119468120772547736}
@@ -1374,7 +1375,7 @@ MonoBehaviour:
   frontRightWheelTransform: {fileID: 1894990186208051840}
   rearLeftWheelTransform: {fileID: 6246109011594852846}
   rearRightWheelTransform: {fileID: 192386585758285490}
-  isTesting: 0
+  isSinglePlayer: 0
 --- !u!114 &6286721314887980301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,6 +1395,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 8922413931760030391}
   - {fileID: 6501113873391788357}
+  - {fileID: -3554620909926826224}
   - {fileID: 691476701525748077}
   - {fileID: 4874578217342668798}
   - {fileID: 3402415090083014453}
@@ -1414,6 +1416,20 @@ MonoBehaviour:
   SyncParent: 0
   _autoAOIOverride: 1
   DisableSharedModeInterpolation: 0
+--- !u!114 &-3554620909926826224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4315572450139385716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d092cd3f9d66b4123a763fd3d1b24827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSinglePlayer: 0
+  _HasFinishedRace: 0
 --- !u!1 &4550925300954909134
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Fusion;
 using Fusion.Sockets;
+using GameSystem;
 using MenuNavigation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,7 +47,7 @@ namespace Multiplayer
                 SessionName = "TestRoom",
                 Scene = scene,
                 SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
-                PlayerCount = 2,
+                PlayerCount = 2, 
             });
 
             //inputController.SetInputLock(true);
@@ -79,7 +81,6 @@ namespace Multiplayer
 
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
-            Debug.Log("Player Left");
             if (runner.LocalPlayer == player)
             {
                 MenuManager.OnLoadMenu?.Invoke(MenuEnums.MAIN_MENU, true);
@@ -132,6 +133,11 @@ namespace Multiplayer
             MenuManager.OnLoadMenu?.Invoke(MenuEnums.MAIN_MENU, true);
         }
 
+        public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
+        {
+
+        }
+
         public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
         public void OnConnectedToServer(NetworkRunner runner) { }
         public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) { }
@@ -140,7 +146,6 @@ namespace Multiplayer
         public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
         public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
         public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
-        public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
         public void OnSceneLoadDone(NetworkRunner runner) { }
         public void OnSceneLoadStart(NetworkRunner runner) { }
         public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
@@ -149,4 +154,8 @@ namespace Multiplayer
         public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress) { }
     }
 
+    public class CarPositionData
+    {
+        public int position;
+    }
 }
