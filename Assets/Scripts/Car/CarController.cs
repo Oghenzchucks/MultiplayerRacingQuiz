@@ -27,15 +27,14 @@ namespace Car
 
         private Rigidbody _carRigidbody;
 
-        private void Start()
-        {
-            _carRigidbody = GetComponent<Rigidbody>();
-        }
+        [Networked]
+        public Vector3 CarVelocity { get; set; }
 
         public override void Spawned()
         {
             if (HasInputAuthority)
             {
+                _carRigidbody = GetComponent<Rigidbody>();
                 GameLauncher.OnPlayerSpawned?.Invoke(transform);
             }
             PositionSystem.OnSpawn?.Invoke(transform, true);
@@ -86,6 +85,18 @@ namespace Car
                     HandleMotor();
                     HandleSteering();
                     UpdateWheels();
+                }
+            }
+
+            if (_carRigidbody != null)
+            {
+                if (Runner.IsServer)
+                {
+                    CarVelocity = _carRigidbody.velocity;
+                }
+                else if (HasInputAuthority)
+                {
+                    _carRigidbody.velocity = CarVelocity;
                 }
             }
         }

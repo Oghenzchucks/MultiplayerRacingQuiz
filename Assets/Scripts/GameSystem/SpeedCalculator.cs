@@ -1,3 +1,4 @@
+using Car;
 using UnityEngine;
 
 namespace GameSystem
@@ -7,7 +8,7 @@ namespace GameSystem
         [SerializeField] private float _speed;
 
         private Transform _target;
-        private Rigidbody carRigidbody;
+        private CarController carController;
 
         private void Update()
         {
@@ -16,7 +17,7 @@ namespace GameSystem
                 return;
             }
 
-            _speed = carRigidbody.velocity.magnitude;
+            _speed = carController.CarVelocity.magnitude;
         }
 
         public float GetSpeed()
@@ -26,7 +27,7 @@ namespace GameSystem
 
         public void SetTarget(Transform followTarget)
         {
-            carRigidbody = followTarget.GetComponent<Rigidbody>();
+            carController = followTarget.GetComponent<CarController>();
             _target = followTarget;
         }
     }

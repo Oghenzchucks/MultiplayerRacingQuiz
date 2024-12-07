@@ -1371,11 +1371,13 @@ MonoBehaviour:
   frontRightWheelCollider: {fileID: 5119468120772547736}
   rearLeftWheelCollider: {fileID: 8423683696325501137}
   rearRightWheelCollider: {fileID: 3505232315695573036}
+  boxCollider: {fileID: 6104118976293164211}
   frontLeftWheelTransform: {fileID: 7691091674206267052}
   frontRightWheelTransform: {fileID: 1894990186208051840}
   rearLeftWheelTransform: {fileID: 6246109011594852846}
   rearRightWheelTransform: {fileID: 192386585758285490}
   isSinglePlayer: 0
+  _CarSpeed: 0
 --- !u!114 &6286721314887980301
 MonoBehaviour:
   m_ObjectHideFlags: 0
